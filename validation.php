@@ -1,8 +1,11 @@
 <?php 
     $naemErr = $dateOfBirthErr = $passportNumberErr = $phoneNumberErr = $emailErr = $dateStartTravelErr = $dateEndTravelErr = $insuranceTypeErr = "";
-    $name = $dateOfBirth = $passportNumber = $phoneNumber = $email = $dateStartTravel =  $dateEndTravel = $iterator = $insuranceType = "";
+    $name = $dateOfBirth = $passportNumber = $phoneNumber = $email = $dateStartTravel =  $dateEndTravel = $iterator = $insuranceType = $days ="";
 
     if($_SERVER["REQUEST_METHOD"] == "POST"){
+        $iterator = $_POST["iterator"];
+        $days = $_POST["numberDays"];
+
         // Validacija imena
         if(empty($_POST["name"])){
             $naemErr = "Molim Vas da unesete Vaše ime i prezime";
@@ -54,7 +57,14 @@
             $dateEndTravel = $_POST["dateEndTravel"];
         }
 
-        // Validacija datuma kraja putovanja
+        // Validacija datuma putovanja u odnosu jedan na drugi
+        if($days <0 && $dateStartTravel != "" && $dateEndTravel != ""){
+            $dateEndTravelErr = "Molim Vas da unesete datum završetka putovanja koji je nakon datuma pocetka";
+            $dateStartTravel = "";
+            $dateEndTravel = "";
+        }
+
+        // Validacija tipa osiguranja
         if(!empty($_POST["insuranceType"])){
             if($_POST["insuranceType"] == "individualno"){
                 $insuranceType = 0;
@@ -65,9 +75,6 @@
         else{
             $insuranceTypeErr = "Molim Vas da odaberete tip osiguranja";
         }
-
-        $iterator = $_POST["iterator"];
-        $days = $_POST["numberDays"];
 
         // Unos nosilaca polise u tabelu
         if($name != "" && $dateOfBirth != "" && $passportNumber != "" && $email != "" && $dateStartTravel != "" && $dateEndTravel != "" && ($insuranceType != 0 || $insuranceType != 1)){

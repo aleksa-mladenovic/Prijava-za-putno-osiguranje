@@ -6,6 +6,14 @@
           FROM `nosioci` 
           WHERE `broj_pasosa` = $key";
     $resultOfQuery = $conn->query($q);
+
+    function formatDate($date){
+        $exploded = explode('-', $date);
+        $year = $exploded[0];
+        $month = $exploded[1];
+        $day = $exploded[2];
+        return $day.".".$month.".".$year.".";
+    }
 ?>
 
 <!DOCTYPE html>
@@ -34,6 +42,7 @@
         </div>
     </nav>
 
+    <!-- Tabela -->
     <h3 class="text-primary">Pregled grupnog osiguranja</h3>
     <div class="container min-vh-100 d-flex justify-content-center align-items-center">
         <table class="table">
@@ -45,11 +54,12 @@
                 </tr>
             </thead>
             <tbody>
+                <!-- Ispis nosioca polise osiguranja -->
                 <?php
                     while($row = $resultOfQuery->fetch_assoc()){
                         echo "<tr>";   
                         echo "<td>".$row["ime_prezime"]."</td>";  
-                        echo "<td>".$row["datum_rodjenja"]."</td>";  
+                        echo "<td>".formatDate($row["datum_rodjenja"])."</td>";  
                         echo "<td>".$row["broj_pasosa"]."</td>";  
                         echo "</tr>";  
                     }
@@ -61,6 +71,7 @@
                     <th scope="col">Broj pasoša</th>
                     </tr>
                 </thead>
+                <!-- Ispis dodatnih osiguranika -->
                 <?php
                     $q = "SELECT `dodatni_nosioci`.`ime_prezime` AS `ime_prezime`, `dodatni_nosioci`.`datum_rodjenja` AS `datum_rodjenja`, `dodatni_nosioci`.`broj_pasosa` AS `broj_pasosa`
                           FROM `dodatni_nosioci` CROSS JOIN `nosioci` ON `dodatni_nosioci`.`id_nad_nosioca` = `nosioci`.`id` 
@@ -70,11 +81,10 @@
                     while($row = $resultOfQuery->fetch_assoc()){
                         echo "<tr>";   
                         echo "<td>".$row["ime_prezime"]."</td>";  
-                        echo "<td>".$row["datum_rodjenja"]."</td>";  
+                        echo "<td>".formatDate($row["datum_rodjenja"])."</td>";  
                         echo "<td>".$row["broj_pasosa"]."</td>";  
                         echo "</tr>";  
                     }
-                    $_COOKIE["brPasosa"] = 0;
                 ?>
             </tbody>
         </table>

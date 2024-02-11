@@ -1,9 +1,11 @@
 $(document).ready(function(){
     // Skripta za prikaz broja izabranih dana
     $('#noDays').hide();
+    
     var fromDate = 0;
     var toDate = 0;
     var days = 0;
+
     $('#fromDate').on('change', function(){
         fromDate = new Date($(this).val());
         if(fromDate != 0 && toDate != 0 ){
@@ -34,6 +36,7 @@ $(document).ready(function(){
     $('#iterator').val(i);
     $('#add-more').on('click',function(e){
         e.preventDefault();
+        // Dodavanje formi za unos dodatnih osiguranika
         var element = '<p class="m-1 text-primary">Podaci o dodatnim osiguranicima:</p> <div class="mb-1"> <label for="" class="form-label">Nosilac osiguranja (Ime i Prezime)*</label> <input type="text" name="nameExtra'+
         i + '" class="form-control" id=""></div><div class="mb-1"><label for="" class="form-label">Datum rođenja*</label><input type="date" name="dateOfBirthExtra' + 
         i + '" class="form-control" id=""></div><div class="mb-1"><label for="" class="form-label">Broj pasoša*</label><input type="number" name="passportNumberExtra' +

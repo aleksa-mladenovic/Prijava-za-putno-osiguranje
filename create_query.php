@@ -37,6 +37,29 @@
 
     if(!$resultOfQuery) {
         $err = $conn->error;
-        echo "Doslo je do greske prilikom kreiranja tabele nosioci: $err";
+        echo "Doslo je do greske prilikom kreiranja tabele dodatni nosioci: $err";
     }
+
+    // Dummy data
+//     $q = "INSERT INTO `nosioci` (`ime_prezime`, `datum_rodjenja`, `broj_pasosa`, `broj_telefona`, `email`, `datum_pocetka`, `datum_kraja`, `broj_dana`, `tip_polise`) 
+//           VALUES ('Jhon Doe', '1974-02-13', '023146759', '0612345678', 'test@email.com', '2024-02-13', '2024-02-18', '5', '0'), 
+//                  ('Lisa Doe', '1980-06-19', '019283756', '0698765432', 'test2@email.com', '2024-02-13', '2024-02-18', '5', '1')";
+
+//     $resultOfQuery = $conn->query($q);
+
+//     if(!$resultOfQuery) {
+//         $err = $conn->error;
+//         echo "Doslo je do greske prilikom kreiranja tabele dodatni nosioci: $err";
+//     }
+
+//     $q = "INSERT INTO `dodatni_nosioci` (`ime_prezime`, `datum_rodjenja`, `broj_pasosa`, `id_nad_nosioca`) 
+//           VALUES ('Alex Doe', '2000-07-21', '014567382', '2'), 
+//                  ('Luke Doe', '2005-11-10', '014567391', '2')";
+
+//     $resultOfQuery = $conn->query($q);
+
+//     if(!$resultOfQuery) {
+//         $err = $conn->error;
+//         echo "Doslo je do greske prilikom kreiranja tabele dodatni nosioci: $err";
+//     }
 ?>

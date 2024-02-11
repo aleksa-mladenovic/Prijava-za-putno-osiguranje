@@ -4,6 +4,14 @@
     $q = "SELECT `timestamp`, `ime_prezime`, `datum_rodjenja`, `broj_pasosa`, `email`, `datum_pocetka`, `datum_kraja`, `broj_dana`,`tip_polise` 
           FROM `nosioci`;";
     $resultOfQuery = $conn->query($q);
+
+    function formatDate($date){
+        $exploded = explode('-', $date);
+        $year = $exploded[0];
+        $month = $exploded[1];
+        $day = $exploded[2];
+        return $day.".".$month.".".$year.".";
+    }
 ?>
 
 <!DOCTYPE html>
@@ -32,6 +40,7 @@
         </div>
     </nav>
 
+    <!-- Tabela -->
     <div class="container min-vh-100 d-flex justify-content-center align-items-center">
         <table class="table">
             <thead>
@@ -54,14 +63,15 @@
                         echo "<tr>";  
                         echo "<td>".$row["timestamp"]."</td>";  
                         echo "<td>".$row["ime_prezime"]."</td>";  
-                        echo "<td>".$row["datum_rodjenja"]."</td>";  
+                        echo "<td>".formatDate($row["datum_rodjenja"])."</td>";  
                         echo "<td>".$row["broj_pasosa"]."</td>";  
                         echo "<td>".$row["email"]."</td>";  
-                        echo "<td>".$row["datum_pocetka"]."</td>";  
-                        echo "<td>".$row["datum_kraja"]."</td>";  
+                        echo "<td>".formatDate($row["datum_pocetka"])."</td>";  
+                        echo "<td>".formatDate($row["datum_kraja"])."</td>";  
                         echo "<td>".$row["broj_dana"]."</td>";  
                         if($row["tip_polise"] == 1){
                             echo "<td>Grupno</td>";
+                            // Dugme akcija koja pomocu GET metoda prenosi br pasosa nosioca polise u pregled_dodatnih.php
                             echo "<td><form action='pregled_dodatnih.php' method='get'><input type='submit' value='Akcija'>
                             <input type='text' name='key' hidden value='".$row["broj_pasosa"]."'></form></td>";
                         }else{
